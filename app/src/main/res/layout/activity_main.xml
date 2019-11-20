@@ -9,13 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <fragment
             android:id="@+id/myNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:navGraph="@navigation/navigation"
-            app:defaultNavHost="true" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="#F1EDED"
+            app:menu="@menu/btm_navigation" />
     </LinearLayout>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navView"
@@ -23,5 +33,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:menu="@menu/navdrawer_menu" />
+
     </androidx.drawerlayout.widget.DrawerLayout>
+
 </layout>
