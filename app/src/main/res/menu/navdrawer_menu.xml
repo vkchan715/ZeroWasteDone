@@ -9,4 +9,7 @@
         android:id="@+id/account"
         android:icon="@drawable/ic_user"
         android:title="@string/menu_account" />
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout"/>
 </menu>

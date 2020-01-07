@@ -12,10 +12,6 @@
         android:title="@string/btmNav_food" />
 
     <item
-        android:id="@+id/navigation_forum"
-        android:icon="@drawable/forum"
-        android:title="@string/btmNav_forum" />
-    <item
         android:id="@+id/navigation_team"
         android:icon="@drawable/team"
         android:title="@string/btmNav_team" />
