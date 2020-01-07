@@ -22,4 +22,7 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="logout">Log Out</string>
+    <string name="owner_name">Owner: </string>
+    <string name="item_name">Item: </string>
+    <string name="pickup_time">Pickup time: </string>
 </resources>
