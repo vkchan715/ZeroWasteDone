@@ -25,4 +25,14 @@
     <string name="owner_name">Owner: </string>
     <string name="item_name">Item: </string>
     <string name="pickup_time">Pickup time: </string>
+    <string name="sendreq">Send Request</string>
+
+    <string name="myreq">My Requests</string>
+    <string name="mylisting">My Listing</string>
+
+    <string name="btnApprove">Approve</string>
+    <string name="target">Target(RM): </string>
+    <string name="donate">DONATE</string>
+    <string name="progress">Progress: </string>
+    <string name="join">JOIN</string>
 </resources>

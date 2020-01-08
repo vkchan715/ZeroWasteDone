@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -112,6 +113,7 @@ class AddFood : AppCompatActivity() {
             val locate: String = editLocate.getText().toString().trim()
             val foodId:String = databaseReference.push().key.toString()
             val userid: String = FirebaseAuth.getInstance().currentUser!!.uid
+            val status: String = "Available"
             if(name.isEmpty()){
                 editName.error = "Please enter a name."
                 return
@@ -141,9 +143,11 @@ class AddFood : AppCompatActivity() {
                         "Image Uploaded Successfully ",
                         Toast.LENGTH_LONG
                     ).show()
-                    val imageUploadInfo =
-                        FoodEntity(userid,taskSnapshot.uploadSessionUri.toString(),foodId,name,desc,date,locate,currentTimeDate)
-                    databaseReference.child(foodId).setValue(imageUploadInfo)
+                    taskSnapshot.storage.downloadUrl.addOnCompleteListener {taskSnapshot2->
+                        val imageUploadInfo =
+                            FoodEntity(userid,taskSnapshot2.result.toString(),foodId,name,desc,date,locate,currentTimeDate,status)
+                        databaseReference.child(foodId).setValue(imageUploadInfo)
+                    }
                     editName.setText("")
                     editDate.setText("")
                     editDesc.setText("")

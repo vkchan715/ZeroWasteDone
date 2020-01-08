@@ -10,6 +10,13 @@
         android:icon="@drawable/ic_user"
         android:title="@string/menu_account" />
     <item
+        android:id="@+id/mylisting"
+        android:title="@string/mylisting"/>
+    <item
+        android:id="@+id/myrequests"
+        android:title="@string/myreq"/>
+    <item
         android:id="@+id/logout"
         android:title="@string/logout"/>
+
 </menu>

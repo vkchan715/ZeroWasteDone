@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_content.*
 class Content : AppCompatActivity() {
     lateinit var donationFragment: Donation
     lateinit var foodFragment:Food
+    lateinit var volunteer: Volunteer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
@@ -44,26 +45,35 @@ class Content : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.framelayout,foodFragment)
                         .commit()
                 }
+                R.id.navigation_team->{
+                     volunteer= Volunteer()
+                    supportFragmentManager.beginTransaction().replace(R.id.framelayout,volunteer)
+                        .commit()
+                }
             }
             true
         }
 
         val navView:NavigationView = findViewById(R.id.navView)
         navView.setNavigationItemSelectedListener { menuItem ->
-            when(menuItem.itemId){
-                R.id.logout ->{
+            when(menuItem.itemId) {
+                R.id.logout -> {
                     FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
+                }
+                R.id.myrequests -> {
+                startActivity(Intent(this, MyRequests::class.java))
+                        finish ()
+                }
+                R.id.mylisting->{
+                    startActivity(Intent(this, MyListing::class.java))
+                    finish ()
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
     }
-    //    override fun onSupportNavigateUp(): Boolean {
-//        val navController = this.findNavController(R.id.layout)
-//        return NavigationUI.navigateUp(navController, drawerLayout)
-//    }
 
 }

@@ -15,15 +15,6 @@
             android:orientation="vertical"
             android:id="@+id/layout">
 
-            <!--            <fragment-->
-            <!--                android:id="@+id/myNavHostFragment"-->
-            <!--                android:name="androidx.navigation.fragment.NavHostFragment"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="0dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                app:defaultNavHost="true"-->
-            <!--                app:navGraph="@navigation/navigation" />-->
-
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navigationView"
                 android:layout_width="match_parent"

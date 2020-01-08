@@ -3,34 +3,34 @@ package com.example.assignment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-
 /**
  * A simple [Fragment] subclass.
  */
-class Donation : Fragment() {
+class Volunteer : Fragment() {
     private var mTextViewEmpty: TextView? = null
     private var mProgressBarLoading: ProgressBar? = null
     private var mImageViewEmpty: ImageView? = null
     private var mRecyclerView: RecyclerView? = null
-    private var mListadapter: Donation.ListAdapter? = null
-    private val data = ArrayList<DonationEntity>()
+    private var mListadapter: Volunteer.ListAdapter? = null
+    private val data = ArrayList<VolunteerEntity>()
     lateinit var ref: DatabaseReference
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_donation, container, false)
         mRecyclerView = view.findViewById<View>(R.id.recyclerView) as RecyclerView
@@ -42,7 +42,7 @@ class Donation : Fragment() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         mRecyclerView!!.layoutManager = layoutManager
 
-        ref = FirebaseDatabase.getInstance().getReference("Donation")
+        ref = FirebaseDatabase.getInstance().getReference("Volunteer")
 
 
         ref.addValueEventListener(object: ValueEventListener {
@@ -54,8 +54,8 @@ class Donation : Fragment() {
                 if(p0!!.exists()){
                     data.clear()
                     for(h in p0.children){
-                        val donate = h.getValue(DonationEntity::class.java)
-                        data.add(donate!!)
+                        val v = h.getValue(VolunteerEntity::class.java)
+                        data.add(v!!)
                     }
                     mListadapter = ListAdapter(data)
                     mRecyclerView!!.adapter = mListadapter
@@ -65,7 +65,7 @@ class Donation : Fragment() {
         })
         return view
     }
-    inner class ListAdapter(private val dataList: ArrayList<DonationEntity>) :
+    inner class ListAdapter(private val dataList: ArrayList<VolunteerEntity>) :
         RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -80,7 +80,7 @@ class Donation : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAdapter.ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.donation_item, parent, false)
+                .inflate(R.layout.volunteer_item, parent, false)
 
             return ViewHolder(view)
         }
@@ -91,13 +91,18 @@ class Donation : Fragment() {
 
             holder.itemView.setOnClickListener {v->
                 val progress :String
-                progress = data[position].donatedPrice + "/" + data[position].targetPrice
-                val i = Intent(v.context, DonatinoDetails::class.java)
+                progress = data[position].num + "/" + data[position].targetnum
+                val i = Intent(v.context, VolunteerDetails::class.java)
                 i.putExtra("img", data[position].uri)
                 i.putExtra("title", data[position].title)
                 i.putExtra("date", data[position].date)
                 i.putExtra("description", data[position].detail)
-                i.putExtra("price",progress)
+                i.putExtra("location",data[position].location)
+                i.putExtra("phonenumber",data[position].phoneno)
+                i.putExtra("targetnum",data[position].targetnum)
+                i.putExtra("num",data[position].num)
+                i.putExtra("id",data[position].id)
+                i.putExtra("progress",progress)
                 v.context.startActivity(i)
             }
         }
@@ -106,6 +111,5 @@ class Donation : Fragment() {
             return dataList.size
         }
     }
-
 
 }
