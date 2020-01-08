@@ -22,6 +22,7 @@ class DonatinoDetails : AppCompatActivity() {
         val desc = i.getStringExtra("description")
         val price  = i .getStringExtra("price")
         val location = i.getStringExtra("location")
+        val id = i.getStringExtra("id")
 
         var itemimg: ImageView = findViewById(R.id.itemImg)
         var titletext: TextView = findViewById(R.id.title)
@@ -35,9 +36,10 @@ class DonatinoDetails : AppCompatActivity() {
         datetext.text = date
         desctext.text = desc
         pricetext.text = price
-//        donatebtn.setOnClickListener{
-//            i = Intent(this, FoodDetail::class.java)
-//
-//        }
+        donatebtn.setOnClickListener{v->
+            val b = Intent(v.context, MakeDonation::class.java)
+            b.putExtra("donateid",id)
+            v.context.startActivity(b)
+        }
     }
 }

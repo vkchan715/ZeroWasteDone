@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VolunteerDetails"></activity>
+        <activity android:name=".MakeDonation"></activity>
+        <activity android:name=".VolunteerDetails" />
         <activity android:name=".DonatinoDetails" />
         <activity android:name=".MyListing" />
         <activity android:name=".MyRequests" />
