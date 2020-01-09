@@ -50,6 +50,7 @@ lateinit var context: Context
         databaseRef = FirebaseDatabase.getInstance().getReference("Requests")
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         val i = intent
+        val id= i.getStringExtra("id")
         val desc = i.getStringExtra("description")
         val img = i.getStringExtra("img")
         val owner = i.getStringExtra("owner")
@@ -61,7 +62,7 @@ lateinit var context: Context
         val createDate = i.getStringExtra("createDate")
         val req = Requests(uid,owner,foodid,foodname,status)
         databaseRef.child(foodid).setValue(req)
-        updateFoodStatus(uid,img,foodid,foodname,desc,ptime,location,createDate)
+        updateFoodStatus(id,img,foodid,foodname,desc,ptime,location,createDate)
         Toast.makeText(applicationContext, "Item Requested", Toast.LENGTH_LONG).show()
     }
     fun updateFoodStatus(userid: String,uri:String,foodId:String,name:String,desc:String,date:String,locate: String,createDate:String):Boolean{

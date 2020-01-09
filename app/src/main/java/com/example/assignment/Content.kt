@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
@@ -11,22 +12,33 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_content.*
 
 class Content : AppCompatActivity() {
     lateinit var donationFragment: Donation
     lateinit var foodFragment:Food
     lateinit var volunteer: Volunteer
+    lateinit var ref: DatabaseReference
+    var name = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
-//        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-//        val navController = this.findNavController(R.id.layout)
-//        drawerLayout = binding.drawerLayout
-//        NavigationUI.setupActionBarWithNavController(this,navController)
-//        NavigationUI.setupWithNavController(binding.navView, navController)
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-//        toolbar = supportActionBar!!
+        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                name = dataSnapshot.child("username").value.toString()
+                val nv = findViewById<NavigationView>(R.id.navView)
+                val menu:Menu = nv.menu
+                val menuitem: MenuItem =menu.findItem(R.id.account)
+                menuitem.title = name
+                menuitem.isEnabled = false
+
+            }
+
+        })
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
 
         donationFragment = Donation()

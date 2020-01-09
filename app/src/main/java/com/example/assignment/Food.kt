@@ -64,7 +64,7 @@ class Food : Fragment() {
                     data.clear()
                     for(h in p0.children){
                         val food = h.getValue(FoodEntity::class.java)
-                        if(food!!.userid!= FirebaseAuth.getInstance().currentUser!!.uid){
+                        if(food!!.userid!= FirebaseAuth.getInstance().currentUser!!.uid&& food!!.status != "Requested"){
                             data.add(food!!)
                         }
 
@@ -146,6 +146,7 @@ class Food : Fragment() {
                 i.putExtra("status",data[position].status)
                 i.putExtra("foodid",data[position].foodId)
                 i.putExtra("createDate",data[position].createDate)
+                i.putExtra("id",data[position].userid)
                 v.context.startActivity(i)
             }
         }
