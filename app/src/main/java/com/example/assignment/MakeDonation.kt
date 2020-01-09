@@ -12,13 +12,14 @@ import java.util.ArrayList
 class MakeDonation : AppCompatActivity() {
     private val data = ArrayList<DonationEntity>()
     lateinit var ref: DatabaseReference
+    var num: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_make_donation)
         var i = intent
         val id = i.getStringExtra("donateid")
-        var amounttext: EditText = findViewById(R.id.amount)
-        var a:Int = amounttext.toString().toInt()
+        val amounttext= findViewById<EditText>(R.id.amountEdit)
         ref = FirebaseDatabase.getInstance().getReference("Donation")
 
         ref.addValueEventListener(object: ValueEventListener {
@@ -40,11 +41,13 @@ class MakeDonation : AppCompatActivity() {
         donatebtn.setOnClickListener{
             for(i in 0..data.size){
                 if(data[i].id.equals(id)){
-                    a = a + data[i].donatedPrice.toInt()
-                    updateDonation(data[i].id, data[i].title, data[i].uri, data[i].detail, data[i].date, data[i].targetPrice, a.toString())
+                    num = i
                     break
                 }
             }
+            var a= amounttext.text.toString().toInt()
+            a = a+ data[num].donatedPrice.toInt()
+            updateDonation(id, data[num].title, data[num].uri, data[num].detail, data[num].date, data[num].targetPrice, a.toString())
             startActivity(Intent(this,Donation::class.java))
         }
     }

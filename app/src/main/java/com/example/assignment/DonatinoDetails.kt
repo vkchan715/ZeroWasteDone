@@ -36,10 +36,10 @@ class DonatinoDetails : AppCompatActivity() {
         datetext.text = date
         desctext.text = desc
         pricetext.text = price
-        donatebtn.setOnClickListener{v->
-            val b = Intent(v.context, MakeDonation::class.java)
-            b.putExtra("donateid",id)
-            v.context.startActivity(b)
+        donatebtn.setOnClickListener{
+            val intent = Intent(this, MakeDonation::class.java)
+            intent.putExtra("donateid",id)
+            startActivity(intent)
         }
     }
 }

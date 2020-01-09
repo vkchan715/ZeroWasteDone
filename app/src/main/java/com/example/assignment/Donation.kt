@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -98,6 +99,7 @@ class Donation : Fragment() {
                 i.putExtra("date", data[position].date)
                 i.putExtra("description", data[position].detail)
                 i.putExtra("price",progress)
+                i.putExtra("id",data[position].id)
                 v.context.startActivity(i)
             }
         }
